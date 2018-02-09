@@ -40,9 +40,10 @@ class Robot
 		void draw();
 		void update();
 
-		float anguloCabeza = 0.0, anguloBrazo = 0.0, anguloPierna = 0.0, anguloBody = 0.0, anguloHip = 0.0;
+		float anguloCabeza = 0.0, anguloBody = 0.0, anguloHip = 0.0,
+			anguloHombroBrazo = 0.0, anguloBrazoMano = 0.0, anguloMuslo = 0.0;
 		float subirPiernaPie = 0.0;
-		float dirIzq = 2.0, dirDerecha = 2.0;
+		float dirCabeza = 2.0, dirBody = 2.0, dirHip = 2.0, dirHombroBrazo = 2.0, dirBrazoMano = 2.0, dirMuslo = 2.0;
 
 		float rotX[ROBOTPARTS];
 		/*float rotY[ROBOTPARTS];

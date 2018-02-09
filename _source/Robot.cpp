@@ -78,6 +78,7 @@ void Robot::draw()
 	glPushMatrix();
 	{
 		//glTranslatef(0, 2, 0);		//Mueve las cosas
+		glRotatef(anguloBody, 0, 1, 0);
 		glScalef(1.0f, 0.7f, 1.0f);		//Escalar (agrandar, ensanchar, etc).
 		parts[BODY]->draw();	// cube, side 1
 		glPushMatrix();
@@ -86,11 +87,12 @@ void Robot::draw()
 			glTranslatef(0, 0.5, 0);
 			glPushMatrix();
 			{
+				glRotatef(anguloCabeza, 0, 1, 0);
 				glScalef(0.3, 0.45, 0.3);
 				parts[NECK]->draw();
 			}
 			glPopMatrix();
-
+			glRotatef(anguloCabeza, 0, 1, 0);
 			glTranslatef(0, 0.5, 0);
 			glScalef(0.4f, 0.6f, 0.4f);
 			parts[HEAD]->draw();
@@ -100,6 +102,7 @@ void Robot::draw()
 		//LEFT ARM
 		glPushMatrix();
 		{
+			glRotatef(anguloHombroBrazo, 1, 0, 0);
 			glTranslatef(0.7, 0.5, 0);
 			glScalef(0.3, 0.3, 0.3);
 			parts[LSHOULDER]->draw();
@@ -224,8 +227,16 @@ void Robot::draw()
 
 void Robot::update()
 {
-	angulo += dir * 0.01f;				//Velocidad a la que se mueve
-	if (angulo > 45 || angulo < 0) {
-		dir = -dir;
+	anguloCabeza += dirCabeza * 0.001f;				//Velocidad a la que se mueve
+	if (anguloCabeza > 10 || anguloCabeza < -10) {
+		dirCabeza = -dirCabeza;
+	}
+	anguloBody += dirBody * 0.002f;
+	if (anguloBody > 5 || anguloBody < -5) {
+		dirBody = -dirBody;
+	}
+	anguloHombroBrazo += dirHombroBrazo * 0.005f;
+	if (anguloHombroBrazo > 15 || anguloHombroBrazo < -15) {
+		dirHombroBrazo = -dirHombroBrazo;
 	}
 }
