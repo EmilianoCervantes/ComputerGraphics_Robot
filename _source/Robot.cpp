@@ -113,6 +113,7 @@ void Robot::draw()
 				parts[LARM]->draw();
 				glPushMatrix();
 				{
+					glRotatef(2 * anguloBrazoMano, 1, 0, 0);
 					glTranslatef(0.0, -3.5, 0);
 					glScalef(1.5, 6, 1.5);
 					parts[LFOREARM]->draw();
@@ -133,6 +134,7 @@ void Robot::draw()
 		//RIGHT ARM
 		glPushMatrix();
 		{
+			glRotatef(-anguloHombroBrazo, 1, 0, 0);
 			glTranslatef(-0.7, 0.5, 0);
 			glScalef(0.3, 0.3, 0.3);
 			parts[RSHOULDER]->draw();
@@ -143,6 +145,7 @@ void Robot::draw()
 				parts[RARM]->draw();
 				glPushMatrix();
 				{
+					glRotatef(2 * anguloBrazoManoDer, 1, 0, 0);
 					glTranslatef(0.0, -1.2, 0);
 					glScalef(1.5, 6, 1.5);
 					parts[RFOREARM]->draw();
@@ -175,6 +178,7 @@ void Robot::draw()
 				//Pierna izquierda
 				glPushMatrix();
 				{
+					glRotatef(-anguloMuslo, 1, 0, 0);
 					glTranslatef(0.4, -2.5, 0);
 					glScalef(0.4, 4, 0.5);
 					parts[LTIGH]->draw();
@@ -198,6 +202,7 @@ void Robot::draw()
 				//Pierna derecha
 				glPushMatrix();
 				{
+					glRotatef(anguloMuslo, 1, 0, 0);
 					glTranslatef(-0.3, -2.5, 0);
 					glScalef(0.4, 4, 0.5);
 					parts[RTIGH]->draw();
@@ -235,8 +240,23 @@ void Robot::update()
 	if (anguloBody > 5 || anguloBody < -5) {
 		dirBody = -dirBody;
 	}
-	anguloHombroBrazo += dirHombroBrazo * 0.005f;
+	anguloHombroBrazo += dirHombroBrazo * 0.004f;
 	if (anguloHombroBrazo > 15 || anguloHombroBrazo < -15) {
 		dirHombroBrazo = -dirHombroBrazo;
+	}
+	//Brazo izquierdo
+	anguloBrazoMano -= dirHombroBrazo * 0.004f;
+	if (anguloBrazoMano > 1 || anguloBrazoMano < -15) {
+		dirHombroBrazo = -dirHombroBrazo;
+	}
+	//Parte derecha
+	anguloBrazoManoDer -= dirBrazoMano * 0.004f;
+	if (anguloBrazoManoDer > 1 || anguloBrazoManoDer < -15) {
+		dirBrazoMano = -dirBrazoMano;
+	}
+	
+	anguloMuslo -= dirMuslo * 0.002f;
+	if (anguloMuslo > 1 || anguloMuslo < -7.5) {
+		dirMuslo = -dirMuslo;
 	}
 }
