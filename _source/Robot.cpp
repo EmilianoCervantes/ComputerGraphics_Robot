@@ -14,59 +14,59 @@ Robot::Robot()
 		parts[i] = new Part(1, 1, 1);
 		rotX[i] = 0.0f;
 	}
-	parts[HEAD]->r = 0;
-	parts[HEAD]->g = 0;
-	parts[HEAD]->b = 1;
+	parts[HEAD]->r = 0.18;
+	parts[HEAD]->g = 0.35;
+	parts[HEAD]->b = 0.76;
 	
-	parts[BODY]->r = 0.8;
-	parts[BODY]->g = 0;
-	parts[BODY]->b = 0;
+	parts[BODY]->r = 0.7;
+	parts[BODY]->g = 0.12;
+	parts[BODY]->b = 0.13;
 	
-	parts[LSHOULDER]->r = 0.8;
-	parts[LSHOULDER]->g = 0;
-	parts[LSHOULDER]->b = 0;
+	parts[LSHOULDER]->r = 0.7;
+	parts[LSHOULDER]->g = 0.12;
+	parts[LSHOULDER]->b = 0.13;
+
+	parts[RSHOULDER]->r = 0.7;
+	parts[RSHOULDER]->g = 0.12;
+	parts[RSHOULDER]->b = 0.13;
 	
-	parts[RSHOULDER]->r = 0.8;
-	parts[RSHOULDER]->g = 0;
-	parts[RSHOULDER]->b = 0;
+	parts[LFOREARM]->r = 0.7;
+	parts[LFOREARM]->g = 0.12;
+	parts[LFOREARM]->b = 0.13;
 	
-	parts[LFOREARM]->r = 0.8;
-	parts[LFOREARM]->g = 0;
-	parts[LFOREARM]->b = 0;
-	
-	parts[RFOREARM]->r = 0.8;
-	parts[RFOREARM]->g = 0;
-	parts[RFOREARM]->b = 0;
+	parts[RFOREARM]->r = 0.7;
+	parts[RFOREARM]->g = 0.12;
+	parts[RFOREARM]->b = 0.13;
 
 	//Forearm between wrist and elbow
 	
-	parts[LHAND]->r = 0;
-	parts[LHAND]->g = 0;
-	parts[LHAND]->b = 1;
-	
-	parts[RHAND]->r = 0;
-	parts[RHAND]->g = 0;
-	parts[RHAND]->b = 1;
+	parts[LHAND]->r = 0.18;
+	parts[LHAND]->g = 0.35;
+	parts[LHAND]->b = 0.76;
+
+	parts[RHAND]->r = 0.18;
+	parts[RHAND]->g = 0.35;
+	parts[RHAND]->b = 0.76;
 	
 	parts[HIP]->r = 0.5;
 	parts[HIP]->g = 0.5;
 	parts[HIP]->b = 0.5;
 	
-	parts[LLEG]->r = 0;
-	parts[LLEG]->g = 0;
-	parts[LLEG]->b = 1;
+	parts[LLEG]->r = 0.18;
+	parts[LLEG]->g = 0.35;
+	parts[LLEG]->b = 0.76;
+
+	parts[RLEG]->r = 0.18;
+	parts[RLEG]->g = 0.35;
+	parts[RLEG]->b = 0.76;
+
+	parts[LFOOT]->r = 0.18;
+	parts[LFOOT]->g = 0.35;
+	parts[LFOOT]->b = 0.76;
 	
-	parts[RLEG]->r = 0;
-	parts[RLEG]->g = 0;
-	parts[RLEG]->b = 1;
-	
-	parts[LFOOT]->r = 0;
-	parts[LFOOT]->g = 0;
-	parts[LFOOT]->b = 1;
-	
-	parts[RFOOT]->r = 0;
-	parts[RFOOT]->g = 0;
-	parts[RFOOT]->b = 1;
+	parts[RFOOT]->r = 0.18;
+	parts[RFOOT]->g = 0.35;
+	parts[RFOOT]->b = 0.76;
 }
 
 Robot::~Robot()
@@ -77,7 +77,7 @@ void Robot::draw()
 {
 	glPushMatrix();
 	{
-		//glTranslatef(0, 2, 0);		//Mueve las cosas
+		glTranslatef(0, salto, 0);		//Mueve las cosas
 		glRotatef(anguloBody, 0, 1, 0);
 		glScalef(1.0f, 0.7f, 1.0f);		//Escalar (agrandar, ensanchar, etc).
 		parts[BODY]->draw();	// cube, side 1
@@ -232,7 +232,7 @@ void Robot::draw()
 
 void Robot::update()
 {
-	anguloCabeza += dirCabeza * 0.001f;				//Velocidad a la que se mueve
+	anguloCabeza += dirCabeza * 0.005f;				//Velocidad a la que se mueve
 	if (anguloCabeza > 10 || anguloCabeza < -10) {
 		dirCabeza = -dirCabeza;
 	}
@@ -259,4 +259,8 @@ void Robot::update()
 	if (anguloMuslo > 1 || anguloMuslo < -7.5) {
 		dirMuslo = -dirMuslo;
 	}
+	salto -= dirHombroBrazo * 0.00005f;
+	/*if (anguloMuslo > 1 || anguloMuslo < -7.5) {
+		dirHombroBrazo = -dirHombroBrazo;
+	}*/
 }
